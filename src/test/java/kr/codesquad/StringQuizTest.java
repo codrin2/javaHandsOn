@@ -12,14 +12,21 @@ class StringQuizTest {
     public void compareStringHashCode() {
         String abc1 = "abc";
         String abc2 = new String("abc");
-        // TODO 1 변수에 정의한 문자열과 new 를 통해 생성한 인스턴스가 같은 주소를 가리키는지 비교
+
+        assertNotSame(abc1, abc2);
+        assertEquals(abc1.hashCode(), abc2.hashCode());
+
+        int hash1 = System.identityHashCode(abc1);
+        int hash2 = System.identityHashCode(abc2);
+        assertNotEquals(hash1, hash2);
     }
 
     @Test
     @DisplayName("문자열 길이 구하기")
     public void test_stringLongLong() throws Exception {
         String teacher = "Honux";
-        // TODO 2 문자열 길이 구하기
+
+        assertEquals(teacher.length(),5);
     }
 
     @Test
@@ -27,28 +34,37 @@ class StringQuizTest {
     public void assembleStrings() throws Exception {
         String teacher = "Crong";
         String frontend = "Hello";
-        // TODO 3 문자열 합치기
+
+        assertEquals("CrongHello", teacher + frontend);
     }
 
     @Test
     @DisplayName("string 을 char 단위로 각각 출력")
     public void testPrintStringAsAChar() throws Exception {
         String teacher = "Pobi";
-        // TODO 4 string 을 char 단위로 출력
-        // 출력결과:
-        // P
-        // o
-        // b
-        // i
+        char[] expectedChars = {'P', 'o', 'b', 'i'};
+
+        char[] actualChars = teacher.toCharArray();
+        assertEquals(expectedChars.length, actualChars.length);
+
+        for (int i = 0; i < actualChars.length; i++) {
+            assertEquals(expectedChars[i], actualChars[i]);
+            System.out.println(expectedChars[i]);
+        }
     }
 
     @Test
     @DisplayName("+을 이용해 String을 거꾸로 출력하기")
     public void stringReversedWithPlus() throws Exception {
         String teacher = "Dangle";
+        String reversed = "";
 
-        // TODO 5 더하기 연산을 이용해 String을 거꾸로 출력하기
-        // 결과: elgnaD
+        for (int i = teacher.length() - 1; i >= 0; i--) {
+            reversed += teacher.charAt(i);
+        }
+
+        assertEquals("elgnaD", reversed);
+        System.out.println(reversed);
     }
 
 
@@ -58,7 +74,9 @@ class StringQuizTest {
         String developer = "Zello";
         StringBuilder sb = new StringBuilder();
 
-        // TODO 6 StringBuilder를 이용해 String을 거꾸로 출력하기
-        // 결과: olleZ
+        sb.append(developer).reverse();
+
+        assertEquals("olleZ", sb.toString());
+        System.out.println(sb);
     }
 }
